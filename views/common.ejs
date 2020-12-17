@@ -1,0 +1,9 @@
+<%
+calculateReviewPercentage = function(reviews, a) {
+    let itemQuantity = reviews.filter(e => e.rating == a);
+    if(itemQuantity.length) {
+        return ((Number(itemQuantity.length) * 100) / Number(reviews.length)).toFixed()
+    }
+    return 0
+}
+%>

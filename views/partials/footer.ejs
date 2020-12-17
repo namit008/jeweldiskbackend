@@ -1,0 +1,125 @@
+<script>
+  var identifier = "<%- identifier || '' %>";
+  var images = [<%- gallery.images.map(item => `"${item}"`) || [] %>];
+  var videos = [<%- gallery.videos.map(item => `"${item}"`) || [] %>];
+  var reviews = [<%- reviews.reverse().map(item => `{ rating: ${item.rating}, name: "${item.name}", desc: "${item.desc}" }`) || [] %>];
+</script>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/slick.js"></script>
+<script type="text/javascript" src="assets/js/vcard.js"></script>
+<script
+  type="text/javascript"
+  src="assets/js/jquery.magnific-popup.js"
+></script>
+<script type="text/javascript" src="assets/js/webslidemenu.js"></script>
+<script type="text/javascript" src="assets/js/common/common.js"></script>
+<script type="text/javascript" src="assets/js/common/action.js"></script>
+<script type="text/javascript" src="assets/js/custom.js"></script>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"
+  integrity="sha256-my/qJggBjG+JoaR9MUSkYM+EpxVkxZRNn3KODs+el74="
+  crossorigin="anonymous"
+></script>
+
+<script>
+  (function () {
+    $(function () {
+      var toggle;
+      return (toggle = new Toggle(".toggle"));
+    });
+
+    this.Toggle = (function () {
+      Toggle.prototype.el = null;
+
+      Toggle.prototype.tabs = null;
+
+      Toggle.prototype.panels = null;
+
+      function Toggle(toggleClass) {
+        this.el = $(toggleClass);
+        this.tabs = this.el.find(".tab");
+        this.panels = this.el.find(".panel");
+        this.bind();
+      }
+
+      Toggle.prototype.show = function (index) {
+        var activePanel, activeTab;
+        this.tabs.removeClass("active");
+        activeTab = this.tabs.get(index);
+        $(activeTab).addClass("active");
+        this.panels.hide();
+        activePanel = this.panels.get(index);
+        return $(activePanel).show();
+      };
+
+      Toggle.prototype.bind = function () {
+        var _this = this;
+        return this.tabs.unbind("click").bind("click", function (e) {
+          return _this.show($(e.currentTarget).index());
+        });
+      };
+
+      return Toggle;
+    })();
+  }.call(this));
+
+  $(function () {
+    $('a[href*="#"]:not([href="#"])').click(function () {
+      if (
+        location.pathname.replace(/^\//, "") ==
+          this.pathname.replace(/^\//, "") &&
+        location.hostname == this.hostname
+      ) {
+        var target = $(this.hash);
+        target = target.length
+          ? target
+          : $("[name=" + this.hash.slice(1) + "]");
+        if (target.length) {
+          $("html, body").animate(
+            {
+              scrollTop: target.offset().top,
+            },
+            1000
+          );
+          return false;
+        }
+      }
+    });
+  });
+
+  function magnificPopupCaller() {
+    $(".image-popup-vertical-fit").magnificPopup({
+      type: "image",
+      closeOnContentClick: true,
+      mainClass: "mfp-img-mobile",
+      image: {
+        verticalFit: true,
+      },
+    });
+
+    $(".image-popup-fit-width").magnificPopup({
+      type: "image",
+      closeOnContentClick: true,
+      image: {
+        verticalFit: false,
+      },
+    });
+
+    $(".image-popup-no-margins").magnificPopup({
+      type: "image",
+      closeOnContentClick: true,
+      closeBtnInside: false,
+      fixedContentPos: true,
+      mainClass: "mfp-no-margins mfp-with-zoom", // class to remove default margin from left and right side
+      image: {
+        verticalFit: true,
+      },
+      zoom: {
+        enabled: true,
+        duration: 300, // don't foget to change the duration also in CSS
+      },
+    });
+  }
+</script>

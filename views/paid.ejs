@@ -1,0 +1,397 @@
+<% const name = owner_info && owner_info.length && owner_info[0].name; %>
+<%- include('common') %>
+<!doctype html>
+<html>
+<head>
+  <%- include('partials/head'); %>
+  <link href="assets/css/paid.css" rel="stylesheet" type="text/css"/>
+  <% if (company_logo && company_name) { %>
+    
+<!-- MS Tile - for Microsoft apps-->
+<meta name="msapplication-TileImage" content="<%= company_logo %>">    
+
+<!-- fb & Whatsapp -->
+
+<!-- Site Name, Title, and Description to be displayed -->
+<meta property="og:site_name" content="<%= company_name %>">
+<meta property="og:title" content="<%= company_name %>">
+<meta property="og:description" content="<%= about_us %>">
+
+<!-- Image to display -->
+<meta property="og:image" content="<%= company_logo %>">
+
+<!-- No need to change anything here -->
+<meta property="og:type" content="website" />
+<meta property="og:image:type" content="image/jpeg">
+
+<!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="300">
+
+<!-- Website to visit when clicked in fb or WhatsApp-->
+<meta property="og:url" content="http://jeweldisk.com/<%= identifier %>">
+  <%} %>
+</head>
+
+<body>
+<div class="mainpage clearfix">
+  <header>
+    <%- include('partials/header'); %>
+  </header>
+
+<section class="banner clearfix" id="BasicInfo">
+<div class="container">
+
+<% if (subscription == 'premium' && slider.length) { %>
+ <div class="main-slide clearfix">
+  <div class="slider home-slide">
+    <%for(var i=0;i<slider.length;i++){%>
+        <div><a class="image-popup-vertical-fit" href="<%= slider[i] %>"><img src="<%= slider[i] %>" class="img-responsive center-block" alt="Slide" width="400"> </a></div>
+    <%}%>
+    </div> 
+ </div>
+ <%}%>
+ 
+ <% if (company_logo) { %>
+ <div class="brand-wrap clearfix">
+    <div class="brand-logo">
+      <a class="image-popup-vertical-fit" href="<%= company_logo %>"><img src="<%= company_logo %>" alt="logo" /></a>
+    </div>
+  <% if (company_name) { %>
+    <h1><%= company_name %></h1>
+  <%}%>
+ </div>
+  <%} else { %>
+    <% if (company_name) { %>
+      <h1 style="margin: 5px 10px; color: #527288; font-size: 26px; font-weight: 700;"><%= company_name %></h1>
+    <%}%>
+  <%}%>
+ <div class="basicinfo clearfix">
+   <ul>
+    <% if (business_type) { %><li><i class="fa fa-briefcase" aria-hidden="true"></i> <%= business_type %></li><%}%>
+    <% if (contact && contact.phone) { %><li><i class="fa fa-phone-square" aria-hidden="true"></i><%= contact.phone %></li><%}%>
+    <% if (address && Object.values(address).length > 0) {let addr = { a: address.line1, b: address.line2, c: address.city, d: address.state, e: address.country }; %><li><i class="fa fa-map-marker" aria-hidden="true"></i><%= Object.values(addr).filter((value) => value).join(', ') %></li><%}%>
+    <% if (contact && contact.email) { %><li><i class="fa fa-envelope" aria-hidden="true"></i><a href="mailto:<%= contact.email %>"><%= contact.email %></a></li><%}%>
+    <% if (contact && contact.website) { %><li><i class="fa fa-globe" aria-hidden="true"></i><a href="<%= contact.website %>"><%= contact.website %></a></li><%}%>
+   </ul> 
+ </div>
+ <% if (social && Object.keys(social).length) { %>
+ <div class="followb clearfix">
+  Follow Us 
+  <% if (social && social.facebook) { %><a target="_blank" href="<%= social.facebook %>"><img src="assets/images/facebook.png" width="37" height="37" alt="facebook"></a> <%}%>
+  <% if (social && social.instagram) { %><a target="_blank" href="<%= social.instagram %>"><img src="assets/images/instagram.png" width="37" height="37" alt="instagram"></a> <%}%>
+  <% if (social && social.youtube) { %><a target="_blank" href="<%= social.youtube %>"><img src="assets/images/youtube.png" width="50" height="37" alt="Youtube"></a> <%}%>
+  <% if (social && social.pinterest) { %><a target="_blank" href="<%= social.pinterest %>">
+    <img src="assets/images/pin.png" width="40" height="37" alt="pin">
+  </a> <%}%>
+  <% if (social && social.twitter) { %><a target="_blank" href="<%= social.twitter %>"><img src="assets/images/twitter.png" width="37" height="37" alt="Twitter"></a><%}%>
+ </div>
+ <%}%>
+  
+ <% if (subscription == 'premium' && offer) { %>
+ <div class="marq">
+    <marquee><%= offer %></marquee>
+  </div>
+  <%}%>
+
+ <div class="callwarp clearfix">
+  <a href="tel:<%= contact.phone %>">Call</a>
+  <a target="_blank" href="https://wa.me/91<%= contact.whatsapp %>">WhatsApp</a>
+  <a id="share-button" target="_blank" style="cursor: pointer;" data-toggle="tooltip" title="Copied link" onclick="javascript:shareCTA('<%= identifier %>')">Share</a>
+  <a href="javascript:downloadVcard('<%= company_name || '' %>', '<%= (owner_info && owner_info.length && owner_info[0].name) || '' %>','<%= contact && contact.phone || '' %>', <%= JSON.stringify(address) || null %>)">Save to contact</a>
+ </div>
+
+ 
+<h3>Share Your Visiting Card on WhatsApp...</h3>
+ <div class="whatsappbox clearfix"><span>+91</span>
+  <input id="wa_share_number" class="form-control" type="tel" placeholder="WhatsApp Number">
+  <button onclick="window.open('https://wa.me/91'+getElementById('wa_share_number').value+'?text=Please visit http://jeweldisk.com/<%= identifier %>','_blank')" class="wh-btn"><i class="fa fa-whatsapp" aria-hidden="true"></i> Send on WhatsApp</button>
+ </div>
+
+</div>
+</section>
+
+<div class="container">
+
+<!-- Owner Info Start -->
+<% if (subscription == 'premium' && owner_info.length) { %>
+<section class="anchor-offset" id="OwnerInfo">
+<div class="card-shadow clearfix">
+ <h2>Owner Info</h2>
+ <div class="card-indent clearfix">
+  <div class="slider owner-info-slide">
+    <%for(var i=0;i<owner_info.length;i++){%>
+      <div>
+         <div class="profile-view"><span>
+            <% if (owner_info[i].image) { %>
+              <div style="height: 200px; width: 200px; position: relative;">
+                <a class="image-popup-vertical-fit" href="<%= owner_info[i].image %>">
+                  <img style="object-fit: cover; object-position: center; width: 110%; height: 110%; position: absolute; top: 0; bottom: 0; margin: auto;" class="img-responsive" src="<%= owner_info[i].image %>">
+                </a>
+            </div>
+            <%} else { %>
+              <%= (owner_info[i].name)[0] %></span>
+            <%}%>
+          </div>
+            <h3><%= owner_info[i].name %></h3>
+            <p>
+              <a class="button-link" href="tel:<%= owner_info[i].phone_no %>"><i class="fa fa-phone" aria-hidden="true"></i> Call</a>
+              <a class="button-link" target="_blank" href="https://wa.me/91<%= owner_info[i].whatsapp_no %>"><i class="fa fa-whatsapp" aria-hidden="true"></i>	 WhatsApp</a>
+            </p>
+        </div>
+      <%}%>
+ </div>
+</div>
+</section>
+<%}%>
+
+<!-- Company Profile Start -->
+<section class="anchor-offset" id="CompanyProfile">
+<div class="card-shadow clearfix">
+<h2>About Us</h2>
+ <div  class="card-indent proindent clearfix">
+  <pre style="background: none; border: none; font-size: 16px; line-height: 28px; padding-bottom: 15px; font-style: italic; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;"><%= about_us %></pre>
+  <% if (subscription == 'premium') { %>
+  <div class="business-card clearfix">
+   <h3>Business Card</h3>
+   <% if(business_card_type == "1"){%>
+    <div class="card-custom clearfix" id="front_card">
+      <div class="cart-title">
+        <%= company_name %>
+       <span>Personal Card</span>
+      </div>
+      <% if (payment_mode && payment_mode.qr_codes && payment_mode.qr_codes.length  > 0) { %>
+        <div class="qr-card"><img src="<%= payment_mode.qr_codes[0].qr_image %>" class="img-responsive" alt="QR"></div>
+        <%}%>
+       
+      <div class="cart-data clearfix">
+       <ul>
+        <li><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+          <% const {line1, country, pincode, url, ...filteredAddr} = address; %>
+          <%= Object.values(filteredAddr).join(', ') %>
+        </li>
+        <li><span><i class="fa fa-phone" aria-hidden="true"></i></span><%= contact.phone %></li>
+        <li><span><i class="fa fa-envelope-o" aria-hidden="true"></i></span><%= contact.email %></li>
+        <li><span><i class="fa fa-globe" aria-hidden="true"></i></span><%= contact.website %></li>
+       </ul>
+      </div>
+    </div>
+    <%}else {%>
+    
+    <div class="card-custom1 clearfix" id="front_card">
+      <div class="cardtitle clearfix">
+        <% if (company_logo) { %> 
+       <div class="pull-left"><img src="<%= company_logo %>" class="img-responsive" style="width:100px;" alt="card"></div>
+       <%}%>
+        <div class="pull-right cardn1">
+          <%= company_name %><span>Business Card</span>
+         </div>
+      </div> 
+      <% if (payment_mode.qr_codes.length > 0) { %>
+       <div class="qr-card1"><img src="<%= payment_mode.qr_codes[0].qr_image %>" class="img-responsive" alt="QR"></div>
+       <%}%>
+       <div class="card1indent clearfix">
+        <ul>
+           <li><span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+            <% const {line1, country, pincode, url, ...filteredAddr} = address; %>
+            <%= Object.values(filteredAddr).join(', ') %>
+            </li>
+            <li><span><i class="fa fa-phone" aria-hidden="true"></i></span><%= contact.phone %></li>
+            <li><span><i class="fa fa-envelope-o" aria-hidden="true"></i></span><%= contact.email %></li>
+            <li><span><i class="fa fa-globe" aria-hidden="true"></i></span><%= contact.website %></li>
+        </ul>
+       </div>
+    </div>
+    <%}%>
+    
+    <a href="JavaScript:void(0)" id="card_share_btn" class="card-share"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+   </div>
+   <%}%>
+
+ </div>
+</div>
+</section>
+
+<!-- Services Start -->
+<section class="anchor-offset" id="Services">
+<div class="card-shadow clearfix">
+<h2>Services</h2>
+ <div  class="card-indent proindent clearfix">
+  <% if ((services && services.length)) { %>
+    <div class="slider owner-info-slide">
+      <%for(var i=0;i<services.length;i++){%>
+        <div><a class="image-popup-vertical-fit" href="<%= services[i].image %>"><img src="<%= services[i].image %>" class="img-responsive center-block" alt="Slide" width="400"></a>
+          <% if (services[i].name) { %>
+            <p><%= services[i].name %></p>
+            <%}%>
+        </div>
+    <%}%>
+    </div>
+    <%}else{%>
+        <p class="text-center">Please contact us to know more about our services</p>
+    <%}%>
+ </div>
+</div>
+</section>
+
+ <!-- Gallary Start -->
+ <% if (gallery.images.length || gallery.videos.length) { %>
+  <%- include('gallery') %>
+<%}%>
+
+<!-- Review Start -->
+<section class="anchor-offset" id="Review">
+<div class="card-shadow clearfix reviewwrap">
+  <h2>Review</h2>
+  <div class="card-indent">
+    <div class="form-group rating-star" id="rating_001">
+      <i class="fa fa-star-o" data-value="1" aria-hidden="true"></i
+      ><i class="fa fa-star-o" data-value="2" aria-hidden="true"></i
+      ><i class="fa fa-star-o" data-value="3" aria-hidden="true"></i
+      ><i class="fa fa-star-o"  data-value="4"  aria-hidden="true"></i
+      ><i class="fa fa-star-o"  data-value="5"  aria-hidden="true"></i> <span id="selected_rating"></span>
+    </div>
+    <div class="form-group">
+      <textarea id="review_comment" class="form-control message" placeholder="Comment"></textarea>
+    </div>
+    <div class="form-group">
+      <input id="review_uname"  class="form-control" type="text" placeholder="Full Name" />
+    </div>
+    <div class="form-group">
+      <input id="review_email" class="form-control" type="text" placeholder="Email Address" />
+    </div>
+    <div class="form-group">
+      <input id="review_phone"  class="form-control" type="text" placeholder="Mobile Number" />
+    </div>
+    <div class="form-group">
+      <button id="review_submit" type="submit" class="sub-btn">Submit Review</button>
+    </div>
+    <div id="review-alert" style="display: none;">
+      <p id="review-alert-msg"></p>
+    </div>
+  
+
+
+<% if (hideReviews) { %>
+  
+<%} else {%>
+<div id="reviews" style="display: none;">
+<h2>Feedback Show</h2>
+<ul id="average-review-container">
+ 
+</ul>
+
+  
+<div class="feedback clearfix">
+  <h4>Feedback Show</h4>
+  <span id="review_container">
+  </span>
+    <div class="bread clearfix">
+          <div class="pagetxt" id="review_pagi_text"></div>
+          <div class="buttonpage clearfix">
+            <a id="review_prev_btn" href="JavaScript:void(0)">Prev</a><a id="review_next_btn" href="JavaScript:void(0)">Next</a>
+          </div>
+    </div>
+</div>
+
+</div>
+<%}%>
+</div>
+</div>
+</section>
+
+<!-- Inquiry Start -->
+<%- include('inquiry_form') %>
+
+
+
+<!-- Location Start -->
+<section class="anchor-offset" id="Location">
+<div class="card-shadow clearfix">
+<h2>Location</h2>
+ <div  class="card-indent clearfix">
+  <div class="text-center pay-txt"><button target="_blank" style="background: none; border: none; width: 100%;"  onclick="window.open('<%= address.url%>','_blank')">Get Direction</button></div>
+  <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d28463.66049957198!2d75.76327750253647!3d26.904841900460397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1586633776948!5m2!1sen!2sin" width="100%" height="550" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+  <!-- <iframe src="https://www.google.com/maps/embed/v1/place?q=<%= address.lat %>,<%= address.lng %>&amp;key=AIzaSyA4U79jxxZgVKx5Gnqz9FoIKuC5sfMpGZQ" width="100%" height="550" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+ </div>
+</div>
+</section>
+
+<!-- Paymet Mode Start -->
+<section class="anchor-offset" id="Payment">
+<div class="card-shadow clearfix">
+ <h2>Payment Mode</h2>
+ <div class="card-indent clearfix">
+  <div class="payment-mode clearfix">
+  <% if(payment_mode && !payment_mode.bank_name){ %>
+    <div class="text-center pay-txt"><button target="_blank" style="background: none; border: none; width: 100%;"  onclick="window.open('https://wa.me/91<%= contact.whatsapp %>','_blank')">Pay Us</button></div>
+  <%}%>
+
+  <% if(payment_mode && payment_mode.bank_name){ %>
+      <ul>
+        <li>
+          <div class="row">
+            <div class="col-sm-6 col-xs-6">Bank Name</div>
+            <div class="col-sm-6 col-xs-6"><%= payment_mode.bank_name %></div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-sm-6 col-xs-6">Account Name</div>
+            <div class="col-sm-6 col-xs-6"><%= payment_mode.acc_name %></div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-sm-6 col-xs-6">Account Number</div>
+            <div class="col-sm-6 col-xs-6"><%= payment_mode.acc_no %></div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <div class="col-sm-6 col-xs-6">Ifsc Code</div>
+            <div class="col-sm-6 col-xs-6"><%= payment_mode.ifsc %></div>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+          <div class="col-sm-6 col-xs-6">GST/Pan No</div>
+          <div class="col-sm-6 col-xs-6"><%= payment_mode.gst_pan %></div>
+        </div>
+        </li>
+      </ul>
+    <%}%>
+
+  </div>
+  
+  <% if(payment_mode && payment_mode.qr_codes && payment_mode.qr_codes.length > 0){ %>
+  <div class="slider owner-info-slide">
+    <%for(var i=0;i<payment_mode.qr_codes.length;i++){%>
+        <div>
+            <h3><%= payment_mode.qr_codes[i].method %> <span><%= payment_mode.qr_codes[i].owner_name %></span></h3>
+             <center><img src="<%= payment_mode.qr_codes[i].qr_image %>" class="img-responsive" alt="Code" style="width:200px;"></center>
+        </div>
+      <%}%>
+    </div>
+    <%}%>
+  </div>
+</section>
+
+
+</div>
+
+<footer>
+  <% if(company_name){ %>
+    <h3>Thanks For Visiting <span><%= company_name %></span></h3>
+  <%}%>
+ <p>powerd By - <a target="_blank" href="http://admin.jeweldisk.com/">jeweldisk.com</a></p>
+ <button style="background: none; border: none; width: 100%;"  onclick="window.open('https://wa.me/917230008182','_blank')"><div class="cardb"><span><i class="fa fa-hand-o-right" aria-hidden="true"></i></span>Click for own business card</div></button>
+</footer>
+
+
+<a href="#" class="scrollup">Scroll</a>
+</div>
+<%- include('partials/footer') %>
+
+</body>
+</html>

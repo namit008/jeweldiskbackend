@@ -1,0 +1,148 @@
+@media screen and (max-width:1023px) {
+
+}
+@media screen and (max-width:767px) {
+header {
+    overflow-x: scroll;
+}
+
+.wsmenu-list {
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 0px;
+}
+.wsmenu-list > li {
+    float: none;
+    display: inline-block;
+}
+
+.whatsappbox .wh-btn {
+    font-size: 12px;
+    width: 42%;
+}
+.whatsappbox .form-control {
+    width: 58%;
+}
+.brand-wrap {
+    padding: 26px 0 0 100px;
+    height: 80px;
+	margin-bottom:10px;
+}
+.brand-wrap .brand-logo {
+    width: 80px;
+    height: 80px;
+}
+.banner { padding:8px 0 0 0;}
+.whatsappbox {
+    margin-bottom: 10px;
+    position: relative;
+}
+.main-slide {
+    margin-bottom: 15px;
+}
+.basicinfo li {
+    padding: 6px 0 6px 36px;
+    font-size: 15px;
+}
+.basicinfo li .fa {
+    top: 6px;
+    font-size: 15px;
+}
+.basicinfo {
+    margin-bottom: 10px;
+}
+.followb {
+    padding: 5px;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+.followb a img { width: 25px;
+    height: auto;}
+
+.callwarp a {
+    padding: 8px;
+    margin: 3px 2px;
+    line-height: 28px;
+    font-size: 14px;
+}
+.banner {
+    margin-bottom: 10px;
+}
+.card-shadow h2 {
+    padding: 9px 15px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(178, 178, 178, 0.56);
+    font-size: 16px;
+}
+.owner-info-slide .profile-view {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 20px;
+}
+.owner-info-slide .profile-view span {
+    line-height: 160px;
+    font-size: 60px;
+    font-weight: 600;
+}
+.owner-info-slide h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.owner-info-slide a {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 8px 5px;
+}
+.owner-info-slide.slick-slider {
+    padding-bottom: 35px;
+}
+.proindent p {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+
+.card-custom {
+    padding: 10px;
+    width: 100%;
+    height: 240px;
+}
+.card-custom .cart-title {
+    font-size: 15px;
+    margin: 0 0 15px;
+    line-height: 22px;
+}
+.card-custom .cart-title span {
+    font-size: 12px;
+    line-height: 22px;
+}
+.waves {
+    width: 100px;
+}
+.cart-data {
+    padding: 0 10px 0 0;
+    width: 65%;
+}
+.cart-data li {
+    position: relative;
+    padding: 5px 20px 5px 0;
+    font-size: 11px;
+    line-height: 16px;
+}
+.cart-data li span {
+    width: 15px;
+    height: 15px;
+    top: 5px;
+    line-height: 14px;
+    font-size: 10px;
+}
+.card-custom {
+    padding: 10px;
+    width: 100%;
+    height: 200px;
+}
+
+
+}

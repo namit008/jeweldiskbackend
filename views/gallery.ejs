@@ -1,0 +1,55 @@
+<section class="anchor-offset" id="Gallery">
+<div class="card-shadow clearfix gallerywrap">
+    <h2>Gallery</h2>
+    <div class="card-indent clearfix">
+      <div class="toggle">
+        <div class="tabs">
+          <% if (gallery.images.length) { %>
+            <div class="tab active">Photo</div>
+          <%}%>
+          <% if (gallery.videos.length) { %>
+          <div class="tab">Video</div>
+          <%}%>
+
+        </div>
+
+        <div class="panels">
+        <% if (gallery.images.length) { %>
+
+          <div class="panel">
+            <div class="photos clearfix">
+              <div class="popup-gallery clearfix">
+                <ul id="image_container">
+                </ul>
+              </div>
+
+              <div class="bread clearfix">
+                <div class="pagetxt" id="image_pagi_text"></div>
+                <div class="buttonpage clearfix">
+                  <a id="image_prev_btn" href="JavaScript:void(0)" >Prev</a><a id="image_next_btn" href="JavaScript:void(0)">Next</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%}%>
+          <% if (gallery.videos.length) { %>
+
+          <div class="panel">
+            <div class="video clearfix">
+              <ul id="video_container">
+              </ul>
+              <div class="bread clearfix">
+                <div class="pagetxt" id="video_pagi_text"></div>
+                <div class="buttonpage clearfix">
+                  <a id="video_prev_btn" href="JavaScript:void(0)">Prev</a><a id="video_next_btn" href="JavaScript:void(0)">Next</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%}%>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
